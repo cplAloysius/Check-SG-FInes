@@ -31,7 +31,7 @@ class checkFinesBot:
     def check(self):
         tel_bot = telebot.TeleBot(token)
         while True:
-            sleep(int(interval))
+            sleep(int(interval) * 60)
 
             self.driver.find_element(by=By.XPATH, value='/html/body/div[3]/div[2]/div[2]/div[2]').click()  
             self.driver.find_element(by=By.XPATH, value='/html/body/div[3]/div[3]/div[1]/a').click()
@@ -42,6 +42,7 @@ class checkFinesBot:
             try:
                 message = self.driver.find_element(by=By.XPATH, value='//*[@id="spanErrorInpVehicleNo"]').text
                 if (message == "No records found. Please try to retrieve by the respective Fines Agency for more details."):
+                    print("no fines")
                     continue
                 else:
                     tel_bot.send_message(chat_id,"you kena fine")
